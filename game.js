@@ -17,6 +17,7 @@ async function nextSequenze(){
     gamePattern.push(randomColor);
     level++;
     $("#level-title").text("Level " + level)
+    //reshow button animation
     for (const game of gamePattern){
         await $(".btn." + game).fadeOut(animationDelay).fadeIn(animationDelay);
         await playSound(game);
@@ -26,6 +27,7 @@ async function nextSequenze(){
 }
 
 function handleUserClick(){
+    //handle user click on button
     if(enableButton){
         var userChosenColor = this.id;
         userClickedPattern.push(userChosenColor);
@@ -56,6 +58,7 @@ function gameOver(){
 }
 
 function startOver(){
+    //restart function
     level = 0;
     gamePattern = [];
     userClickedPattern = [];
@@ -68,16 +71,18 @@ async function playSound(name){
 }
 
 function animateUserPress(color) {
+    //animate pressed button
     $("#" + color).addClass("pressed");
 
     setTimeout(() => { 
         $("#" + color).removeClass("pressed"); 
     },animationDelay);
 }
-
+//listen click on button
 $(".btn").click(handleUserClick);
 
 $(document).on("keypress", function() {
+    //listen on keypress click
     if(level == 0){
         setTimeout(() => {
             nextSequenze();
